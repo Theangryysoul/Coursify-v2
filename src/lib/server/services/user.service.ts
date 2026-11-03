@@ -1,0 +1,86 @@
+import User from "../models/user.model";
+import { NotFoundError } from "../utils/errors";
+
+export const getCurrentUser = async (userId: string) => {
+  const user = await User.findById(userId).select(
+    "name email avatar bio createdAt updatedAt"
+  );
+
+  if (!user) {
+    throw new NotFoundError("User not found");
+  }
+
+  return user;
+};
+
+export const updateAvatar = async (
+  userId: string,
+  avatar: {
+    url: string;
+    publicId: string;
+  }
+) => {
+  const user = await User.findByIdAndUpdate(
+    userId,
+    { avatar },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!user) {
+    throw new NotFoundError("User not found");
+  }
+
+  return user;
+};
+
+export const removeAvatar = async (
+  userId: string
+) => {
+  const user = await User.findByIdAndUpdate(
+    userId,
+    {
+      avatar: {
+        url: "",
+        publicId: "",
+      },
+      $currentDate: {
+        updatedAt: true,
+      },
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!user) {
+    throw new NotFoundError("User not found");
+  }
+
+  return user;
+};
+
+export const updateProfile = async (
+  userId: string,
+  data: {
+    name?: string;
+    bio?: string;
+  }
+) => {
+  const user = await User.findByIdAndUpdate(
+    userId,
+    data,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!user) {
+    throw new NotFoundError("User not found");
+  }
+
+  return user;
+};
