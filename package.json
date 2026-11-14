@@ -18,7 +18,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:cache": "node --experimental-strip-types --test tests/query-cache.test.mjs"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.2.9",

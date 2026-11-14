@@ -1,37 +1,33 @@
-import {
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { deleteCourse } from "@/api/course.api";
+import { captureQueryUser } from "@/hooks/use-query-user";
+import { invalidateResume, invalidateUserData, queryKeys } from "@/lib/query-cache";
 
 export function useDeleteCourse() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    // The card needs the id to know which row to remove optimistically, so the
-    // id travels with the variables rather than being read back off the
-    // response.
     mutationFn: (courseId: string) => deleteCourse(courseId),
+    onMutate: captureQueryUser,
+    onSuccess: (_data, courseId, context) => {
+      const userId = context?.userId;
+      if (!userId) return;
 
-    onSuccess: (_data, courseId) => {
-      // Drop the deleted course's cached detail page so navigating back to it
-      // does not render a course the user no longer owns.
-      queryClient.removeQueries({
-        queryKey: ["course-details", courseId],
-      });
+      // Remove only this account's deleted detail page, including a pending GET.
+      const filters = {
+        queryKey: queryKeys.courseDetails(courseId, userId),
+        exact: true,
+      };
+      void queryClient.cancelQueries(filters);
+      queryClient.removeQueries(filters);
 
-      queryClient.invalidateQueries({
-        queryKey: ["courses"],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["folders"],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["learning-stats"],
-      });
+      void invalidateUserData(queryClient, userId, [
+        "courses",
+        "folders",
+        "learning-stats",
+      ]);
+      void invalidateResume(queryClient, userId);
     },
   });
 }

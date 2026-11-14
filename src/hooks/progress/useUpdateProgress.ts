@@ -1,9 +1,8 @@
-import {
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { updateProgress } from "@/api/progress.api";
+import { captureQueryUser } from "@/hooks/use-query-user";
+import { invalidateResume, invalidateUserData } from "@/lib/query-cache";
 
 export function useUpdateProgress() {
   const queryClient = useQueryClient();
@@ -14,27 +13,18 @@ export function useUpdateProgress() {
       data,
     }: {
       videoId: string;
-      data: Parameters<
-        typeof updateProgress
-      >[1];
-    }) =>
-      updateProgress(
-        videoId,
-        data
-      ),
+      data: Parameters<typeof updateProgress>[1];
+    }) => updateProgress(videoId, data),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["courses"],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["learning-stats"],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["course-details"],
-      });
+    onMutate: captureQueryUser,
+    onSuccess: (_data, { videoId }, context) => {
+      void invalidateUserData(queryClient, context?.userId, [
+        "courses",
+        "learning-stats",
+        "course-details",
+        "heatmap",
+      ]);
+      void invalidateResume(queryClient, context?.userId, videoId);
     },
   });
 }

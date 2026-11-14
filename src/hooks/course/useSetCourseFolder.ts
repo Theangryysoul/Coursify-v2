@@ -1,9 +1,8 @@
-import {
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { setCourseFolder } from "@/api/course.api";
+import { captureQueryUser } from "@/hooks/use-query-user";
+import { invalidateUserData } from "@/lib/query-cache";
 
 type SetCourseFolderVariables = {
   courseId: string;
@@ -16,17 +15,10 @@ export function useSetCourseFolder() {
   return useMutation({
     mutationFn: ({ courseId, folderId }: SetCourseFolderVariables) =>
       setCourseFolder(courseId, folderId),
-
-    onSuccess: () => {
-      // Both the course cards and the folder counts change when a course is
-      // filed somewhere else.
-      queryClient.invalidateQueries({
-        queryKey: ["courses"],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["folders"],
-      });
+    onMutate: captureQueryUser,
+    onSuccess: (_data, _variables, context) => {
+      // Moving a course changes both the cards and folder counts.
+      void invalidateUserData(queryClient, context?.userId, ["courses", "folders"]);
     },
   });
 }
