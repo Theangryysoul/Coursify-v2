@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 import YouTube, {
   type YouTubeEvent,
   type YouTubePlayer,
@@ -148,7 +148,7 @@ const startTracking = () => {
       className="lp-clay-card lp-clay-white overflow-hidden rounded-3xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
     >
       <div className="aspect-video w-full">
         <div className="h-full w-full">

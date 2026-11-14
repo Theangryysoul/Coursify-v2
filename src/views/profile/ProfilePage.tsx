@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/store/auth.store";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import { EditProfileDialog } from "@/components/profile/EditProfileDialog";
 import { ChangeAvatarDialog } from "./ChangeAvatarDialog";
@@ -10,16 +10,11 @@ export default function ProfilePage() {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <motion.div
-      className="mx-auto max-w-6xl space-y-8"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="mx-auto max-w-6xl space-y-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
       >
         <h1 className="text-3xl font-bold sm:text-4xl text-foreground">
           My Profile
@@ -27,10 +22,10 @@ export default function ProfilePage() {
       </motion.div>
 
       <motion.div
-        className="lp-clay-card lp-clay-white rounded-3xl p-6 backdrop-blur-xl sm:p-10"
+        className="lp-clay-card lp-clay-white rounded-3xl p-6 sm:p-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.1 }}
       >
         <div className="flex flex-col items-center text-center">
           <img
@@ -67,10 +62,10 @@ export default function ProfilePage() {
       </motion.div>
 
       <motion.div
-        className="lp-clay-card lp-clay-white rounded-3xl p-6 backdrop-blur-xl sm:p-8"
+        className="lp-clay-card lp-clay-white rounded-3xl p-6 sm:p-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.2 }}
       >
         <h2 className="mb-6 text-2xl font-semibold text-foreground">
           Account Information
@@ -106,7 +101,7 @@ export default function ProfilePage() {
           />
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -122,7 +117,7 @@ function InfoItem({
       className="lp-clay-card lp-clay-white min-w-0 p-4"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.3 }}
     >
       <p className="text-sm text-muted-foreground">
         {label}

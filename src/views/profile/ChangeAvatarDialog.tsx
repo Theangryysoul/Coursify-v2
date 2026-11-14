@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 
 import {
@@ -200,13 +199,9 @@ export function ChangeAvatarDialog() {
           >
             {isOptimizing ? (
               <>
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="h-4 w-4"
-                >
+                <div className="lp-spinner h-4 w-4">
                   <Loader2 className="h-4 w-4" style={{ color: "white" }} />
-                </motion.div>
+                </div>
                 Optimizing…
               </>
             ) : (

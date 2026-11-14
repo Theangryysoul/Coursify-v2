@@ -2,7 +2,8 @@
 
 import { Pin, Heart } from "lucide-react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -31,8 +32,8 @@ export function CourseCard({ course, index = 0 }: CourseCardProps) {
       initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.25,
-        ease: "easeOut",
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
         delay: prefersReducedMotion ? 0 : Math.min(index, 3) * 0.05,
       }}
       className={`lp-clay-card ${colorClass} h-full overflow-hidden rounded-3xl`}
@@ -43,6 +44,7 @@ export function CourseCard({ course, index = 0 }: CourseCardProps) {
             src={course.course.thumbnail}
             alt={course.course.title}
             loading="lazy"
+            decoding="async"
             className="aspect-video w-full cursor-pointer object-cover"
           />
         </Link>

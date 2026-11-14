@@ -1,12 +1,4 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import {
-  motion,
-  useReducedMotion,
-} from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
@@ -28,8 +20,10 @@ import {
 
 import { Logo } from "@/components/common/Logo";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
+import { PageEffects } from "@/components/common/PageEffects";
 import { ROUTES } from "@/constants/routes";
-import { useMounted } from "@/hooks/use-mounted";
+
+import "./landing.css";
 
 const features = [
   {
@@ -132,13 +126,6 @@ const activityLevel = (index: number) => {
  * It follows the active theme, exactly like the app it is portraying.
  */
 function DashboardShowcase() {
-  const { resolvedTheme } = useTheme();
-
-  // Matches the server render until after hydration, then reflects the theme.
-  const mounted = useMounted();
-
-  const isDark = mounted && resolvedTheme === "dark";
-
   // 48 weeks x 7 days - the same shape as the real contribution graph.
   const totalCells = 48 * 7;
 
@@ -146,7 +133,7 @@ function DashboardShowcase() {
     <div className="lp-showcase">
       <aside className="lp-showcase-side">
         <div className="lp-showcase-brand">
-          <Logo className="h-6 w-auto" />
+          <Logo className="h-6 w-auto" sizes="80px" />
         </div>
 
         <nav>
@@ -162,8 +149,8 @@ function DashboardShowcase() {
       <div className="lp-showcase-main">
         <div className="lp-showcase-top">
           <span className="lp-showcase-theme" aria-hidden="true">
-            <span className={isDark ? "is-active" : undefined}>Dark</span>
-            <span className={isDark ? undefined : "is-active"}>Light</span>
+            <span className="lp-showcase-theme-dark">Dark</span>
+            <span className="lp-showcase-theme-light">Light</span>
           </span>
 
           <span className="lp-avatar">A</span>
@@ -253,68 +240,16 @@ function DashboardShowcase() {
 }
 
 export default function LandingPage() {
-  const root = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
-
-  // Cursor-reactive glow
-  useEffect(() => {
-    const element = root.current;
-
-    if (!element || reducedMotion) return;
-
-    let frame = 0;
-
-    const handlePointer = (event: PointerEvent) => {
-      cancelAnimationFrame(frame);
-
-      frame = requestAnimationFrame(() => {
-        element.style.setProperty("--mx", `${event.clientX}px`);
-        element.style.setProperty("--my", `${event.clientY}px`);
-      });
-    };
-
-    window.addEventListener("pointermove", handlePointer);
-
-    return () => {
-      window.removeEventListener("pointermove", handlePointer);
-      cancelAnimationFrame(frame);
-    };
-  }, [reducedMotion]);
-
-  // Reveal sections on scroll
-  useEffect(() => {
-    if (reducedMotion) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    const elements = document.querySelectorAll(".lp-reveal");
-
-    elements.forEach((element) => observer.observe(element));
-
-    return () => observer.disconnect();
-  }, [reducedMotion]);
-
   return (
-    <div className="coursify-landing" ref={root}>
-      <div className="lp-cursor-glow" />
-      <div className="lp-orb lp-orb-one" />
-      <div className="lp-orb lp-orb-two" />
-      <div className="lp-orb lp-orb-three" />
+    <PageEffects className="coursify-landing" reveal>
+      <div className="lp-orb lp-orb-one" aria-hidden="true" />
+      <div className="lp-orb lp-orb-two" aria-hidden="true" />
+      <div className="lp-orb lp-orb-three" aria-hidden="true" />
 
       {/* Navbar */}
       <header className="lp-navbar">
         <Link href="/" className="lp-logo" aria-label="Coursify home">
-          <Logo className="h-8 w-auto" />
+          <Logo className="h-8 w-auto" sizes="104px" />
         </Link>
 
         <nav aria-label="Landing page">
@@ -340,15 +275,11 @@ export default function LandingPage() {
             YOUR LEARNING, A LITTLE MORE YOU
           </div>
 
-          <motion.h1
-            initial={reducedMotion ? false : { opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
+          <h1 className="lp-hero-heading">
             Make room for
             <br />
             your <em>curiosity.</em>
-          </motion.h1>
+          </h1>
 
           <p>
             All those YouTube lessons you mean to watch? Give them a home.
@@ -372,14 +303,9 @@ export default function LandingPage() {
           <p className="lp-proof">A calmer way to keep learning.</p>
         </div>
 
-        <motion.div
-          className="lp-hero-visual"
-          initial={reducedMotion ? false : { opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-        >
+        <div className="lp-hero-visual lp-enter">
           <DashboardShowcase />
-        </motion.div>
+        </div>
 
         <a href="#about" className="lp-scroll">
           SCROLL TO EXPLORE <ArrowDown size={14} />
@@ -422,7 +348,7 @@ export default function LandingPage() {
             <article
               key={title}
               className={`lp-feature lp-${color} lp-reveal`}
-              style={{ transitionDelay: `${reducedMotion ? 0 : index * 60}ms` }}
+              style={{ transitionDelay: `${index * 60}ms` }}
             >
               <div className="lp-feature-icon">
                 <Icon size={22} />
@@ -480,6 +406,6 @@ export default function LandingPage() {
           <Check size={14} /> A simple space for your next big thing.
         </div>
       </section>
-    </div>
+    </PageEffects>
   );
 }

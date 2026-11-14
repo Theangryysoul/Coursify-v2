@@ -2,7 +2,7 @@
 
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -27,7 +27,7 @@ export function CourseHeader({
       className="lp-clay-card lp-clay-white rounded-3xl p-6 lg:p-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
     >
       <Button
         asChild

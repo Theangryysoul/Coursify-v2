@@ -1,12 +1,10 @@
-"use client";
-
-import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 
 interface EmptyStateProps {
   title: string;
   description: string;
-  icon?: React.ReactNode;
-  action?: React.ReactNode;
+  icon?: ReactNode;
+  action?: ReactNode;
 }
 
 export function EmptyState({
@@ -16,12 +14,7 @@ export function EmptyState({
   action,
 }: EmptyStateProps) {
   return (
-    <motion.div
-      className="lp-clay-card lp-clay-white flex flex-col items-center justify-center rounded-3xl border border-dashed p-10 text-center"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-    >
+    <div className="lp-clay-card lp-clay-white lp-enter flex flex-col items-center justify-center rounded-3xl border border-dashed p-10 text-center">
       {icon && (
         <div className="lp-clay-icon lp-clay-peach mb-5">
           {icon}
@@ -33,6 +26,6 @@ export function EmptyState({
       <p className="text-muted-foreground mt-2">{description}</p>
 
       {action && <div className="mt-6">{action}</div>}
-    </motion.div>
+    </div>
   );
 }

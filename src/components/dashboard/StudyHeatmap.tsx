@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useHeatmap } from "@/hooks/progress/useHeatmap";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 const HEATMAP_COLORS = [
   "bg-[#e6e9f5] dark:bg-white/10",
@@ -201,7 +201,7 @@ export function StudyHeatmap() {
       className="w-full space-y-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.5, delay: 0.2 }}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-2xl font-bold">Study Activity</h2>
@@ -213,7 +213,7 @@ export function StudyHeatmap() {
         className="lp-clay-card lp-clay-white rounded-3xl p-6"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.1 }}
       >
         <div ref={chartRef} className="w-full">
           {/* Month labels */}

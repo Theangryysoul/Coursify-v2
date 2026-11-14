@@ -3,7 +3,7 @@
 import { useCourses } from "@/hooks/course/useCourses";
 
 import { RecentCourseCard } from "./RecentCourseCard";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 export function RecentCourses() {
   const { data: courses, isPending } = useCourses();
@@ -14,7 +14,7 @@ export function RecentCourses() {
         className="space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.4 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.4 }}
       >
         <h2 className="text-2xl font-bold">Recent Courses</h2>
 
@@ -25,7 +25,7 @@ export function RecentCourses() {
               className="lp-clay-card lp-clay-white overflow-hidden rounded-2xl h-full"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25, delay: Math.min(item, 3) * 0.05 }}
+              transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.25, delay: Math.min(item, 3) * 0.05 }}
             >
               <div className="aspect-video animate-pulse bg-gradient-to-r from-[#f0ecec] to-[#e8e0e8]" />
               <div className="space-y-3 p-5">
@@ -49,22 +49,17 @@ export function RecentCourses() {
         className="space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.4 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.4 }}
       >
         <h2 className="text-2xl font-bold">Recent Courses</h2>
 
-        <motion.div
-          className="lp-clay-card lp-clay-white flex flex-col items-center justify-center rounded-3xl border border-dashed p-12 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-        >
+        <div className="lp-clay-card lp-clay-white flex flex-col items-center justify-center rounded-3xl border border-dashed p-12 text-center">
           <h3 className="text-xl font-semibold">No recent courses</h3>
 
           <p className="mt-2 text-muted-foreground">
             Imported courses will appear here.
           </p>
-        </motion.div>
+        </div>
       </motion.section>
     );
   }
@@ -74,7 +69,7 @@ export function RecentCourses() {
       className="space-y-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.4 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.4 }}
     >
       <h2 className="text-2xl font-bold">Recent Courses</h2>
 

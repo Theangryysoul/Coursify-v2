@@ -1,7 +1,7 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 interface StatCardProps {
   title: string;
@@ -30,7 +30,7 @@ export function StatCard({ title, value, icon: Icon, color = "peach" }: StatCard
       className={`lp-clay-card ${COLOR_MAP[color]} h-full p-6`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
     >
       <div className="lp-clay-icon">
         <Icon className="h-6 w-6" style={{ color: ICON_COLOR_MAP[color] }} />

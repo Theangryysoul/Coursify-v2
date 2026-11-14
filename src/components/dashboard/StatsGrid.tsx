@@ -10,7 +10,7 @@ import {
 import { StatCard } from "./StatCard";
 import { useLearningStats } from "@/hooks/progress/useLearningStats";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 export function StatsGrid() {
   const { data, isPending } = useLearningStats();

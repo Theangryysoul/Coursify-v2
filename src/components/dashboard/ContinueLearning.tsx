@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -18,7 +18,7 @@ export function ContinueLearning() {
         className="space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.3 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.3 }}
       >
         <h2 className="text-2xl font-bold">Continue Learning</h2>
 
@@ -39,16 +39,11 @@ export function ContinueLearning() {
         className="space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.3 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.3 }}
       >
         <h2 className="text-2xl font-bold">Continue Learning</h2>
 
-        <motion.div
-          className="lp-clay-card lp-clay-white flex flex-col items-center justify-center rounded-3xl border border-dashed p-12 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-        >
+        <div className="lp-clay-card lp-clay-white flex flex-col items-center justify-center rounded-3xl border border-dashed p-12 text-center">
           <h3 className="text-xl font-semibold">No courses yet 📚</h3>
 
           <p className="mt-2 max-w-md text-muted-foreground">
@@ -62,7 +57,7 @@ export function ContinueLearning() {
           >
             <Link href="/import">Import Course</Link>
           </Button>
-        </motion.div>
+        </div>
       </motion.section>
     );
   }
@@ -72,21 +67,17 @@ export function ContinueLearning() {
       className="space-y-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.3 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.3 }}
     >
       <h2 className="text-2xl font-bold">Continue Learning</h2>
 
-      <motion.div
-        className="lp-clay-card lp-clay-white overflow-hidden rounded-3xl"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-      >
+      <div className="lp-clay-card lp-clay-white overflow-hidden rounded-3xl">
         <div className="grid md:grid-cols-[320px_1fr]">
           <Link href={`/courses/${course.course._id}`}>
             <img
               src={course.course.thumbnail}
               alt={course.course.title}
+              decoding="async"
               className="h-48 w-full object-cover md:h-full"
             />
           </Link>
@@ -127,7 +118,7 @@ export function ContinueLearning() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </motion.section>
   );
 }

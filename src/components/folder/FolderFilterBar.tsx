@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Layers, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import {
   AlertDialog,
@@ -83,7 +83,7 @@ export function FolderFilterBar({
         className="flex flex-wrap items-center gap-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
       >
         <motion.button
           type="button"
@@ -104,7 +104,7 @@ export function FolderFilterBar({
               className="group relative"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
+              transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.5, delay: Math.min(index, 6) * 0.06 }}
             >
               <motion.button
                 type="button"

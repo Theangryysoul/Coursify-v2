@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import {
   Sheet,
@@ -45,7 +45,7 @@ export function MobileNav() {
 
       <SheetContent
         side="left"
-        className="w-[17rem] gap-0 border-r border-white/50 bg-white/75 p-0 backdrop-blur-2xl dark:border-white/10 dark:bg-[#181818]/90"
+        className="w-[17rem] gap-0 border-r border-white/50 bg-white/75 p-0 backdrop-blur-xl dark:border-white/10 dark:bg-[#181818]/90"
       >
         <SheetHeader className="border-b border-white/50 p-5 dark:border-white/10">
           <SheetTitle asChild>
@@ -66,7 +66,7 @@ export function MobileNav() {
               key={item.href}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
+              transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.3, delay: index * 0.05 }}
             >
               <SidebarItem
                 {...item}

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
@@ -9,6 +7,8 @@ import logoLight from "@/assets/logo-light.png";
 
 interface LogoProps {
   className?: string;
+  /** Rendered width: avoids requesting the full-size artwork for a small mark. */
+  sizes?: string;
   /** Force a variant instead of following the active theme. */
   theme?: "light" | "dark";
 }
@@ -27,11 +27,12 @@ const baseClassName = "h-9 w-auto select-none";
  * in JavaScript would disagree with the server, which cannot resolve the theme
  * and would therefore hydrate the light mark into a dark page.
  */
-export function Logo({ className, theme }: LogoProps) {
+export function Logo({ className, theme, sizes = "116px" }: LogoProps) {
   if (theme) {
     return (
       <Image
         src={theme === "dark" ? logoDark : logoLight}
+        sizes={sizes}
         alt="Coursify"
         draggable={false}
         className={cn(baseClassName, className)}
@@ -43,6 +44,7 @@ export function Logo({ className, theme }: LogoProps) {
     <>
       <Image
         src={logoLight}
+        sizes={sizes}
         alt="Coursify"
         draggable={false}
         className={cn(baseClassName, "dark:hidden", className)}
@@ -50,6 +52,7 @@ export function Logo({ className, theme }: LogoProps) {
 
       <Image
         src={logoDark}
+        sizes={sizes}
         alt=""
         aria-hidden
         draggable={false}

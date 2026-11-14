@@ -1,7 +1,7 @@
 "use client";
 
 import { Clock3, PlayCircle, Tv } from "lucide-react";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import type { YoutubePreviewResponse } from "@/types/youtube";
 
@@ -14,16 +14,17 @@ export function PreviewCard({ preview }: PreviewCardProps) {
 
   return (
     <motion.div
-      className="lp-clay-card lp-clay-white mt-6 w-full max-w-3xl overflow-hidden rounded-3xl border-border/60 backdrop-blur-xl"
+      className="lp-clay-card lp-clay-white mt-6 w-full max-w-3xl overflow-hidden rounded-3xl border-border/60"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
     >
       <div className="grid md:grid-cols-[25rem_1fr]">
         <div className="overflow-hidden lp-clay-peach">
           <img
             src={data.thumbnail}
             alt={data.title}
+            decoding="async"
             className="w-full object-cover aspect-video md:h-full md:aspect-auto"
           />
         </div>
@@ -61,7 +62,7 @@ export function PreviewCard({ preview }: PreviewCardProps) {
               className="lp-clay-card lp-clay-lilac rounded-xl p-3"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
+              transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.3, delay: 0.1 }}
             >
               <div className="mb-1 flex items-center gap-2">
                 <PlayCircle className="h-4 w-4 shrink-0" style={{ color: "var(--lp-lavender)" }} />
@@ -79,7 +80,7 @@ export function PreviewCard({ preview }: PreviewCardProps) {
               className="lp-clay-card lp-clay-mint rounded-xl p-3"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.15 }}
+              transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.3, delay: 0.15 }}
             >
               <div className="mb-1 flex items-center gap-2">
                 <Tv className="h-4 w-4 shrink-0" style={{ color: "var(--lp-mint)" }} />

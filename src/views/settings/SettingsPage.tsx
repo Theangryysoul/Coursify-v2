@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Check, LogOut, Monitor, Moon, Sun } from "lucide-react";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,7 +44,7 @@ function SettingsSection({
       className="lp-clay-card lp-clay-white rounded-3xl p-5 sm:p-7"
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay }}
     >
       <header className="border-b border-border/50 pb-4">
         <h2 className="text-foreground text-lg font-bold tracking-[-0.02em]">
@@ -105,7 +105,7 @@ export default function SettingsPage() {
       className="mx-auto max-w-2xl space-y-6"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.45 }}
     >
       <header>
         <h1 className="text-foreground text-3xl font-black tracking-[-0.035em] sm:text-4xl">

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Link2 } from "lucide-react";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/routes";
@@ -51,17 +51,12 @@ export default function ImportPage() {
   };
 
   return (
-    <motion.div
-      className="mx-auto flex w-full max-w-5xl flex-col items-center pt-2 sm:pt-8 lg:pt-16"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="mx-auto flex w-full max-w-5xl flex-col items-center pt-2 sm:pt-8 lg:pt-16">
       <motion.div
         className="mb-6 text-center sm:mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.1 }}
       >
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl text-foreground">
           Import YouTube Course
@@ -74,10 +69,10 @@ export default function ImportPage() {
       </motion.div>
 
       <motion.div
-        className="lp-clay-card lp-clay-white w-full max-w-3xl rounded-3xl border-border/60 backdrop-blur-xl"
+        className="lp-clay-card lp-clay-white w-full max-w-3xl rounded-3xl border-border/60"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.2 }}
       >
         <div className="space-y-5 p-4 sm:space-y-6 sm:p-8">
           <div className="relative">
@@ -129,11 +124,11 @@ export default function ImportPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.3 }}
         >
           <PreviewCard preview={previewMutation.data} />
         </motion.div>
       )}
-    </motion.div>
+    </div>
   );
 }

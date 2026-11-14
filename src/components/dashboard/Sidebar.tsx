@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 import { SIDEBAR_ITEMS } from "./sidebar-items";
@@ -60,15 +60,17 @@ export function Sidebar() {
     getServerSnapshot
   );
 
+  // Apply the chosen width once. Tweening it repeatedly relayouts every
+  // course card and retriggers the study heatmap's ResizeObserver.
   return (
     <motion.aside
       className={cn(
-        "hidden h-screen shrink-0 border-r border-white/50 bg-white/35 backdrop-blur-2xl transition-[width] duration-300 ease-out dark:border-white/10 dark:bg-black/25 lg:sticky lg:top-0 lg:flex lg:flex-col",
+        "hidden h-screen shrink-0 border-r border-white/50 bg-white/35 backdrop-blur-xl dark:border-white/10 dark:bg-black/25 lg:sticky lg:top-0 lg:flex lg:flex-col",
         collapsed ? "w-20" : "w-72"
       )}
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
     >
       {/* Logo */}
       <div
@@ -79,6 +81,7 @@ export function Sidebar() {
       >
         <Link href="/dashboard" aria-label="Coursify dashboard">
           <Logo
+            sizes={collapsed ? "64px" : "116px"}
             className={cn(
               "w-auto transition-opacity hover:opacity-80",
               collapsed ? "h-5" : "h-9"
@@ -97,7 +100,7 @@ export function Sidebar() {
             key={item.href}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.05 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.3, delay: index * 0.05 }}
           >
             <SidebarItem {...item} collapsed={collapsed} />
           </motion.div>

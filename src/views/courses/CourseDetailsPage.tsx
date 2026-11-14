@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 import { useCourseDetails } from "@/hooks/course/useCourseDetails";
 import { useResume } from "@/hooks/progress/useResume";
@@ -120,7 +120,7 @@ export default function CourseDetailsPage() {
         className="mx-auto flex w-full max-w-7xl flex-col gap-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
       >
         <div className="lp-clay-card lp-clay-white text-center py-20 rounded-3xl">
           Loading course...
@@ -135,7 +135,7 @@ export default function CourseDetailsPage() {
         className="mx-auto flex w-full max-w-7xl flex-col gap-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
       >
         <div className="lp-clay-card lp-clay-white text-center py-20 rounded-3xl">
           Course not found.
@@ -149,12 +149,12 @@ export default function CourseDetailsPage() {
       className="mx-auto flex w-full max-w-7xl flex-col gap-6"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.5 }}
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
       >
         <CourseHeader
           title={data.userCourse.course.title}
@@ -169,7 +169,7 @@ export default function CourseDetailsPage() {
           className="flex min-w-0 flex-col gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.1 }}
         >
           <CoursePlayer
             videoId={activeVideo.videoId}
@@ -201,7 +201,7 @@ export default function CourseDetailsPage() {
           className="lp-clay-card lp-clay-white flex min-h-0 flex-col rounded-3xl p-3 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+          transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.4, delay: 0.2 }}
           aria-label="Course queue"
         >
           <div className="flex items-center justify-between px-2 pb-3 pt-1">

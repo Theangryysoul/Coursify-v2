@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { CheckCircle2, Play } from "lucide-react";
 
 import type { Video } from "@/types/course-details";
@@ -66,6 +66,7 @@ export const LectureItem = forwardRef<
             src={lecture.thumbnail}
             alt=""
             loading="lazy"
+            decoding="async"
             className="h-full w-full object-cover"
           />
         ) : null}
@@ -132,7 +133,7 @@ export const LectureItem = forwardRef<
           }}
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.3 }}
         />
       )}
     </div>

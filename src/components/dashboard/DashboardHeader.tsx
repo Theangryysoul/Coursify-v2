@@ -12,7 +12,7 @@ import {
   AvatarImage,
 } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 export function DashboardHeader() {
   const user = useAuthStore((state) => state.user);
@@ -33,7 +33,7 @@ export function DashboardHeader() {
       className="lp-clay-card lp-clay-white rounded-3xl p-6 lg:p-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.5 }}
     >
       <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center lg:gap-8">
         <div className="flex min-w-0 items-start gap-4">
